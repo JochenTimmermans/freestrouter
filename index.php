@@ -1,5 +1,5 @@
 <?php
-
+namespace freest\router;
 
 ini_set('error_reporting', E_ALL & ~E_DEPRECATED);
 ini_set('display_errors', 'STDOUT');

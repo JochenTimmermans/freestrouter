@@ -1,4 +1,5 @@
 <?php
+namespace freest\router;
 
 class Router 
 {
@@ -45,7 +46,7 @@ class Router
             }
         }
         else {
-            return '';
+            return '0';
         }
     }
     
