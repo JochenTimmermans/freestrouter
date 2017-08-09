@@ -9,21 +9,22 @@ class Router
     public function __construct() 
     {
         $uri = $_SERVER['REQUEST_URI'];
+        $uri = $this->filterBase($uri);        
         $exp = explode('/',$uri);
 
-        if ($exp[0] == "" || $exp[0] == BASE_ROUTE) {
-            array_shift($exp);
-            if ($exp[0] == "" || $exp[0] == BASE_ROUTE) {
-                array_shift($exp);
-            }
-        }
-        $exp2 = array();
+        // filter all empties
+        $routes = array();
         foreach ($exp as $e) {
             if ($e != "") {
-                $exp2[] = $e;
+                array_push($routes, $e);
             }
         }
-        $this->routes = $exp2;
+        
+        //echo 'URI: '.$uri.'<br/>';
+        //var_dump($routes);
+        
+        
+        
     }
     
     public function route(string $route, $return)
@@ -33,20 +34,35 @@ class Router
     
     public function get()
     {
-        /*
+        
         echo var_dump($this->routes);
         echo 'routes[0]: '.$this->routes[0];
-        */
+        
         if (isset($this->routes[0])) {
             foreach ($this->routemap as $rm) {
                 if ($rm[0][0] == $this->routes[0]) {
-                
                     return $rm[1];
                 }
             }
         }
         else {
             return '0';
+        }
+    }
+        
+    
+    // dus ... eerst de eerste twee filteren
+    private function filterBase(string $uri): string 
+    {
+        if (strstr($uri, BASE_ROUTE)) {
+            $pos = strpos($uri, BASE_ROUTE);
+            echo $pos.'</br>';
+            $pos += strlen(BASE_ROUTE); 
+            echo $pos.'</br>';
+            return substr($uri, $pos);
+        }
+        else {
+            return $uri;
         }
     }
     
