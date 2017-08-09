@@ -56,9 +56,9 @@ class Router
     {
         if (strstr($uri, BASE_ROUTE)) {
             $pos = strpos($uri, BASE_ROUTE);
-            echo $pos.'</br>';
+            //echo $pos.'</br>';
             $pos += strlen(BASE_ROUTE); 
-            echo $pos.'</br>';
+            //echo $pos.'</br>';
             return substr($uri, $pos);
         }
         else {
