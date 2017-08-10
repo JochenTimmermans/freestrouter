@@ -5,11 +5,15 @@ class Router
 {
     private $routes;
     private $routemap;
+    private $uri;
     
     public function __construct() 
     {
         $uri = $_SERVER['REQUEST_URI'];
-        $uri = $this->filterBase($uri);        
+        //echo 'uri1: '.$uri.'<br/>';
+        $uri = $this->filterBase($uri);
+        $this->uri = $uri;
+        //echo 'uri2: '.$uri.'<br/>';        
         $exp = explode('/',$uri);
 
         // filter all empties
@@ -19,11 +23,10 @@ class Router
                 array_push($routes, $e);
             }
         }
+        $this->routes = $routes;
         
         //echo 'URI: '.$uri.'<br/>';
         //var_dump($routes);
-        
-        
         
     }
     
@@ -32,24 +35,42 @@ class Router
         $this->routemap[] = array(explode('/',$route),$return);
     }
     
-    public function get()
+    public function get($i = 0)
     {
-        
-        echo var_dump($this->routes);
-        echo 'routes[0]: '.$this->routes[0];
-        
-        if (isset($this->routes[0])) {
-            foreach ($this->routemap as $rm) {
-                if ($rm[0][0] == $this->routes[0]) {
-                    return $rm[1];
-                }
-            }
+        if (substr($this->uri,-4) == '.css') {
+            require $uri;
         }
         else {
-            return '0';
+            //echo var_dump($this->routes);
+            //echo 'routes[0]: '.$this->routes[0].'<br/>';
+        
+            if (isset($this->routes[$i])) {
+                //echo 'route: '.$this->routes[$i];
+                foreach ($this->routemap as $rm) {
+                    if ($rm[0][0] == $this->routes[$i]) {
+                        return $rm[1];
+                    }
+                }
+            }
+            else {
+                return '0';
+            }
         }
     }
         
+    public function match()  // match the total uri
+    {
+        echo $this->uri;
+    }
+    public function getUri($part = 0) {
+        if (isset($this->routes[$part])) {
+            return $this->routes[$part];
+        }
+        else {
+            return false;
+        }
+    }
+    
     
     // dus ... eerst de eerste twee filteren
     private function filterBase(string $uri): string 
