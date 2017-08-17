@@ -6,14 +6,14 @@ First simple version of freestRouter
 
 include in your PHP like so:
 ```
-        $router = new Router();
-        $router->route('',          '0');
-        $router->route('index.php', '0');
-        $router->route('articles',  '1');
-        $router->route('article',  '1');
-        $router->route('fbadmin',   '2');
+$router = new Router();       
+$router->route('',          '0');
+$router->route('index.php', '0');
+$router->route('articles',  '1');
+$router->route('article',   '1');
+$router->route('fbadmin',   '2');
         
-        if ($router->get() == '1') {
-					// index.php
-				}
+if ($router->get() == '1') {
+  // index.php
+}
 ```
