@@ -38,14 +38,10 @@ class Router
     public function get($i = 0)
     {
         if (substr($this->uri,-4) == '.css') {
-            require $uri;
+            require $this->uri;
         }
         else {
-            //echo var_dump($this->routes);
-            //echo 'routes[0]: '.$this->routes[0].'<br/>';
-        
             if (isset($this->routes[$i])) {
-                //echo 'route: '.$this->routes[$i];
                 foreach ($this->routemap as $rm) {
                     if ($rm[0][0] == $this->routes[$i]) {
                         return $rm[1];
