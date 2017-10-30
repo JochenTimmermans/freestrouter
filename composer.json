@@ -8,5 +8,10 @@
             "email": "jochen@jochent.eu"
         }
     ],
-    "require": {}
+    "require": {},
+    "autoload": {
+        "psr-4": {
+            "freestrouter\\": "Router.php"
+        }
+    }
 }
